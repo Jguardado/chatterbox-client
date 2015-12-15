@@ -10,6 +10,9 @@
 var app = {};
 
 app.init = function(){
+
+  app.fetch();
+  app.handleSubmit();
 };
 
 var message = {
@@ -43,14 +46,20 @@ app.fetch = function(){
   $.ajax({
     // This is the url you should use to communicate with the parse API server.
     //url: 'https://api.parse.com/1/classes/chatterbox'
-    url: undefined,
+    url: 'https://api.parse.com/1/classes/chatterbox',
     type: 'GET',
     data: JSON.stringify(message),
     contentType: 'application/json',
     success: function (data) {
-      $('#main').append(data.results[0].username)
-      $('#main').append(data.results[0].text);
+      
       console.log(data);
+      app.addMessage(data);
+/*      for (var i = data.results.length - 1; i >= 0; i--) {
+        app.addMesage(data.results[i].username);
+      };*/
+      // app.addMessage(data.results[])
+      // $('#main').append(data.results[0].text);
+      
     },
     error: function (data) {
       // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -60,27 +69,34 @@ app.fetch = function(){
   });
 
 };
-$(document).ready(function(){
-  $('#main').append('<div id="chats">');
-  $('#main').append('<div id="roomSelect>')
-  //$('#chats').append('<div class="message"></div>');
-
-  $('.username').on('click', function() {
-    var userName = $('.username').val();
-    app.addFriend(userName);
-  });
-
- });
 
 var $chat = $('#chats');
 //console.log($chat);
 
-app.addMessage = function(message){
+app.addMessage = function(data){
 
+    console.log(data);
+    for (var i = data.results.length - 1; i >= 0; i--) {
+      data.results[i]
+
+    var $chat = $('<div class="chat">') 
+    var $username = $('<div class="username">' + data.results[i].username +': </div>');
+    var $text = $('<div class="text">'+ data.results[i].text + '</div>');
+    // var $message = $('<div class="text">' + message + '</div>'); 
+    
+    $chat.append($username);
+    $chat.append($text).val(message);
+
+    $('#main').append($chat);
+    };
+    //$('#chats').append($message);
     console.log($chat);
-    var $message = $('<div id="chats">' + message + '</div>'); 
-    $('#chats').append($message);
 
+    $('.username').on('click', function() {
+      var userName = $('.username').val();
+      console.log(userName);
+      app.addFriend();
+    });
 
 };
 
@@ -99,13 +115,36 @@ app.addRoom = function(roomname){
 
 app.addFriend = function(username) {
 
+  console.log("add Friend is being called");
+  return true;
+
 };
 
 
 app.handleSubmit = function(){
+  console.log('inside handle submit');
 
 };
 
+$(document).ready(function(){
+
+  $('#main').append('<div id="chats">');
+  $('#main').append('<div id="roomSelect>')
+  //$('#chats').append('<div class="message"></div>');
+
+
+  $('.refresh').on('click', function() {
+
+  });
+
+  $('#send').on('click', function(event){
+    event.preventDefault();
+    var writeText = $('#send :input').val();
+
+    app.handleSubmit();
+  });
+
+ });
 
 
 

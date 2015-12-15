@@ -63,10 +63,13 @@ form input[type=text] {
     padding: 5px;
     margin-bottom: 5px;
     background-color: #eee;
+    border: 2px solid black;
+    height: 20px;
 }
 
 .chat .username {
-    font-weight: 800;
+    float:left;
+    color: aqua;
 }
 
 .chat:hover {
