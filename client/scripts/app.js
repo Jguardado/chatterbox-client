@@ -42,7 +42,7 @@ app.fetch = function(){
   
   $.ajax({
     // This is the url you should use to communicate with the parse API server.
-    //'https://api.parse.com/1/classes/chatterbox'
+    //url: 'https://api.parse.com/1/classes/chatterbox'
     url: undefined,
     type: 'GET',
     data: JSON.stringify(message),
@@ -60,24 +60,52 @@ app.fetch = function(){
   });
 
 };
+$(document).ready(function(){
+  $('#main').append('<div id="chats">');
+  $('#main').append('<div id="roomSelect>')
+  //$('#chats').append('<div class="message"></div>');
+
+  $('.username').on('click', function() {
+    var userName = $('.username').val();
+    app.addFriend(userName);
+  });
+
+ });
+
+var $chat = $('#chats');
+//console.log($chat);
 
 app.addMessage = function(message){
-  var $message = $('<div class="message">'); 
-  $('#main').append($message);
-  $('#main').append('hello');
+
+    console.log($chat);
+    var $message = $('<div id="chats">' + message + '</div>'); 
+    $('#chats').append($message);
+
+
 };
 
-app.clearMessages = function(message){
-  //var $message = $('<div class="message"')
-  $('.message').remove();
-}
+app.clearMessages = function(){
+  //alert('in the clearing function')
+
+    var $chat = $('#chats');
+    //debugger
+    $('#chats').remove();
+
+};
 
 app.addRoom = function(roomname){
-  $('#main').append(roomname);
+  $('#roomSelect').append('<div class="chatRoom"></div>');
 };
 
-$(document).ready(function(){
- });
+app.addFriend = function(username) {
+
+};
+
+
+app.handleSubmit = function(){
+
+};
+
 
 
 
