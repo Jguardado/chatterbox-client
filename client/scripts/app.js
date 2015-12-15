@@ -14,29 +14,32 @@ var app = {};
 app.init = function(){
 
   app.fetch();
-  app.handleSubmit();
+  //app.handleSubmit();
 };
 
 //'<img src="images/bird-03.jpg height="42" width="42">'
-var message = {
-  username: 'TGA Hacks',
-  text: 'Be Hacked or be Hacked',
-  roomname: 'You be Gone Yaaarrrr !!!!'
-};
+// var message = {
+//   username: 'TGA Hacks',
+//   text: 'Be Hacked or be Hacked',
+//   roomname: 'You be Gone Yaaarrrr !!!!  '
+// };
 
-app.send = function(message){
-console.log(message);
+app.send = function(data){
+console.log('this the message being passed into app.send ' + data.text);
+//console.log(JSON.stringify(message));
+
   $.ajax({
 
     // This is the url you should use to communicate with the parse API server.
     url: 'https://api.parse.com/1/classes/chatterbox',
     type: 'POST',
-    data: JSON.stringify(message),
+    data: JSON.stringify(data),
     contentType: 'application/json',
     success: function (data) {
       console.log('message sent', data);
 
-      $('#main').append(data);
+      $('#chat').append(data);
+      //app.addMessage(data);
       //console.log(data);
     },
     error: function (data) {
@@ -46,20 +49,22 @@ console.log(message);
   });
 };
 
-app.fetch = function(){
+app.fetch = function(data){
   
   $.ajax({
     // This is the url you should use to communicate with the parse API server.
     //url: 'https://api.parse.com/1/classes/chatterbox'
     url: 'https://api.parse.com/1/classes/chatterbox',
     type: 'GET',
-    data: JSON.stringify(message),
+    data: JSON.stringify(data),
     contentType: 'application/json',
     success: function (data) {
       
-      //console.log(data);
+      var arrayOfData = [];
+      arrayOfData.push(data);
+      console.log(arrayOfData);
       app.addMessage(data);
-      
+
     },
     error: function (data) {
       // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -75,22 +80,34 @@ var $chat = $('#chats');
 
 app.addMessage = function(data){
 
-    console.log(data);
-    for (var i = data.results.length - 1; i >= 0; i--) {
-      data.results[i]
+  if(data.results){
 
-    var $chat = $('<div class="chat">') 
-    var $username = $('<div class="username">' + data.results[i].username +': </div><br>');
-    var $text = $('<div class="text">'+ data.results[i].text + '</div>');
-    // var $message = $('<div class="text">' + message + '</div>'); 
-    
-    $chat.append($username);
-    $chat.append($text).val(message);
+    //console.log(data);
+    for (var i = 0; i < data.results.length; i++) {
+      var $chat = $('<div class="chat">') 
+      var $username = $('<div class="username">' + data.results[i].username +': </div><br>');
+      var $text = $('<div class="text">'+ data.results[i].text + '</div>');
+      // var $message = $('<div class="text">' + message + '</div>'); 
+      
+      $chat.append($username);
+      $chat.append($text).val(data.text);
 
-    $('#main').append($chat);
+      $('#main').append($chat);
     };
+  }
+
+  var $chat = $('<div class="chat">') 
+  var $username = $('<div class="username">' + data.username +': </div><br>');
+  var $text = $('<div class="text">'+ data.text + '</div>');
+  // var $message = $('<div class="text">' + message + '</div>'); 
+  
+  $chat.append($username);
+  $chat.append($text).val(data.text);
+  $('#main').append($chat);
+
+
     //$('#chats').append($message);
-    console.log($chat);
+    //console.log($chat);
 
 /*    $('.username').on('click', function() {
       var userName = $('.username').val();
@@ -115,15 +132,21 @@ app.addRoom = function(roomname){
 
 app.addFriend = function(username) {
 
-  console.log("add Friend is being called");
+  //console.log("add Friend is being called");
   return true;
 
 };
 
 
-app.handleSubmit = function(message){
-  app.send('<' + message + '>');
-  console.log('inside handle submit');
+app.handleSubmit = function(input){
+  var message = {
+    username: 'James Bond',
+    text: input,
+    roomname: "4chan"
+  };
+
+  app.send(message);
+  console.log('inside handle submit: ' + message.text);
 
 };
 
@@ -138,15 +161,15 @@ $(document).ready(function(){
 
   });
 
-  $('#send').on('click', function(event){
-    event.preventDefault();
+  $('#send').on('submit', function(event){
+    //event.preventDefault();
     var writeText = $('#send :input').val();
     app.handleSubmit(writeText);
   });
 
  });
 
-setInterval(app.init, 10000);
+setInterval(app.fetch, 500);
 
 
 
