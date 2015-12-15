@@ -9,20 +9,23 @@
 //find a way to post created messages by user to the DOM.
 var app = {};
 
+
+
 app.init = function(){
 
   app.fetch();
   app.handleSubmit();
 };
 
+//'<img src="images/bird-03.jpg height="42" width="42">'
 var message = {
-  username: 'shawndrost',
-  text: 'trololo',
-  roomname: '4chan'
+  username: 'TGA Hacks',
+  text: 'Be Hacked or be Hacked',
+  roomname: 'You be Gone Yaaarrrr !!!!'
 };
 
 app.send = function(message){
-
+console.log(message);
   $.ajax({
 
     // This is the url you should use to communicate with the parse API server.
@@ -31,7 +34,9 @@ app.send = function(message){
     data: JSON.stringify(message),
     contentType: 'application/json',
     success: function (data) {
-      //$('#main').append(data);
+      console.log('message sent', data);
+
+      $('#main').append(data);
       //console.log(data);
     },
     error: function (data) {
@@ -52,13 +57,8 @@ app.fetch = function(){
     contentType: 'application/json',
     success: function (data) {
       
-      console.log(data);
+      //console.log(data);
       app.addMessage(data);
-/*      for (var i = data.results.length - 1; i >= 0; i--) {
-        app.addMesage(data.results[i].username);
-      };*/
-      // app.addMessage(data.results[])
-      // $('#main').append(data.results[0].text);
       
     },
     error: function (data) {
@@ -80,7 +80,7 @@ app.addMessage = function(data){
       data.results[i]
 
     var $chat = $('<div class="chat">') 
-    var $username = $('<div class="username">' + data.results[i].username +': </div>');
+    var $username = $('<div class="username">' + data.results[i].username +': </div><br>');
     var $text = $('<div class="text">'+ data.results[i].text + '</div>');
     // var $message = $('<div class="text">' + message + '</div>'); 
     
@@ -92,11 +92,11 @@ app.addMessage = function(data){
     //$('#chats').append($message);
     console.log($chat);
 
-    $('.username').on('click', function() {
+/*    $('.username').on('click', function() {
       var userName = $('.username').val();
       console.log(userName);
       app.addFriend();
-    });
+    });*/
 
 };
 
@@ -121,7 +121,8 @@ app.addFriend = function(username) {
 };
 
 
-app.handleSubmit = function(){
+app.handleSubmit = function(message){
+  app.send('<' + message + '>');
   console.log('inside handle submit');
 
 };
@@ -140,13 +141,12 @@ $(document).ready(function(){
   $('#send').on('click', function(event){
     event.preventDefault();
     var writeText = $('#send :input').val();
-
-    app.handleSubmit();
+    app.handleSubmit(writeText);
   });
 
  });
 
-
+setInterval(app.init, 10000);
 
 
 

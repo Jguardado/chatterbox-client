@@ -64,7 +64,7 @@ form input[type=text] {
     margin-bottom: 5px;
     background-color: #eee;
     border: 2px solid black;
-    height: 20px;
+    height: 60px;
 }
 
 .chat .username {
