@@ -77,7 +77,7 @@ app.fetch = function(data){
 };
 
 // app.soundCloud = function(){
-  
+
 // }
 
 var $chat = $('#chats');
@@ -178,7 +178,7 @@ $(document).ready(function(){
     app.handleSubmit(writeText);
   });
 
-  $('.username').on('click', function(event){
+  $(document).on('click', '.username', function(event){
     event.preventDefault();
     console.log("Clicking on Username");
     app.addFriend();
