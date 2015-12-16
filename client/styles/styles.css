@@ -5,6 +5,10 @@ body {
     font-family: arial, sans-serif;
 }
 
+a :hover {
+    font-style: bold;
+}
+
 #main {
     width: 500px;
     margin: auto;
@@ -65,11 +69,17 @@ form input[type=text] {
     background-color: #eee;
     border: 2px solid black;
     height: 60px;
+    font-size: 13px;
+    overflow: hidden;
 }
 
-.chat .username {
-    float:left;
-    color: aqua;
+.username {
+    color: red;
+    display: inline;
+}
+
+.text {
+    display: inline;
 }
 
 .chat:hover {
@@ -80,6 +90,11 @@ form input[type=text] {
     float: right;
     height: 46px;
     margin-bottom: 5px;
+}
+
+.audio {
+    width: 100px;
+    height: 100px;
 }
 
 .spinner img {

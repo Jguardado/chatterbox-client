@@ -13,12 +13,33 @@
     <script src="scripts/app.js"></script>
   </head>
   <body>
+    
+
+    <div class="audio">
+    <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+    <script>
+    SC.initialize({
+    client_id: '6617a80ec894fc13c3fee6db07053a7d',
+    redirect_uri: ''
+    });
+
+    SC.stream('/tracks/293').then(function(player){ player.play();});
+    </script>
+    </div>
+    
     <div id="main">
-      <h1>chatterbox</h1>
-      <form id="send">
+    <h1>chatterbox</h1>
+    <form id="send">
         <input type='text'><input class='submit' type='submit' value='Submit'>
       </form>
-      <button class="refresh">Refresh</button>      
+      <!-- <button id="refresh">Refresh</button>       -->
     </div>
+
+
+
+
+
   </body>
 </html>
+
+

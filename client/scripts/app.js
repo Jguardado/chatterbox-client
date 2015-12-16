@@ -60,9 +60,10 @@ app.fetch = function(data){
     contentType: 'application/json',
     success: function (data) {
       
-      var arrayOfData = [];
-      arrayOfData.push(data);
-      console.log(arrayOfData);
+      //var arrayOfData = [];
+      //arrayOfData.push(data);
+      //console.log(arrayOfData);
+      app.clearMessages();
       app.addMessage(data);
 
     },
@@ -75,19 +76,27 @@ app.fetch = function(data){
 
 };
 
+// app.soundCloud = function(){
+  
+// }
+
 var $chat = $('#chats');
 //console.log($chat);
 
 app.addMessage = function(data){
+console.log();
+var main = document.body.children[0];
 
+  //console.log(main.children[2]);
   if(data.results){
 
     //console.log(data);
     for (var i = 0; i < data.results.length; i++) {
       var $chat = $('<div class="chat">') 
-      var $username = $('<div class="username">' + data.results[i].username +': </div><br>');
+      var $username = $('<a href="#" class="username">' + data.results[i].username +'</a>');
       var $text = $('<div class="text">'+ data.results[i].text + '</div>');
       // var $message = $('<div class="text">' + message + '</div>'); 
+      
       
       $chat.append($username);
       $chat.append($text).val(data.text);
@@ -97,13 +106,14 @@ app.addMessage = function(data){
   }
 
   var $chat = $('<div class="chat">') 
-  var $username = $('<div class="username">' + data.username +': </div><br>');
+  var $username = $('<a href="#" class="username">' + data.username + '</a>');
   var $text = $('<div class="text">'+ data.text + '</div>');
   // var $message = $('<div class="text">' + message + '</div>'); 
   
   $chat.append($username);
   $chat.append($text).val(data.text);
   $('#main').append($chat);
+  //currentMessages.push('hi');
 
 
     //$('#chats').append($message);
@@ -122,7 +132,7 @@ app.clearMessages = function(){
 
     var $chat = $('#chats');
     //debugger
-    $('#chats').remove();
+    $('.chat').remove();
 
 };
 
@@ -130,17 +140,17 @@ app.addRoom = function(roomname){
   $('#roomSelect').append('<div class="chatRoom"></div>');
 };
 
-app.addFriend = function(username) {
+app.addFriend = function() {
 
-  //console.log("add Friend is being called");
-  return true;
+  console.log("add Friend is being called\n it\'s");
+  // return true;
 
 };
 
 
 app.handleSubmit = function(input){
   var message = {
-    username: 'James Bond',
+    username: 'guyWithCoolPants_98',
     text: input,
     roomname: "4chan"
   };
@@ -152,24 +162,31 @@ app.handleSubmit = function(input){
 
 $(document).ready(function(){
 
-  $('#main').append('<div id="chats">');
-  $('#main').append('<div id="roomSelect>')
+  //$('#main').append('<div id="chats">');
+  //$('#main').append('<div id="roomSelect>')
   //$('#chats').append('<div class="message"></div>');
 
 
-  $('.refresh').on('click', function() {
-
-  });
+  // $('body').on('click','#refresh', function() {
+  //   console.log('the click handler is operating');
+  //   app.fetch();
+  // });
 
   $('#send').on('submit', function(event){
-    //event.preventDefault();
+    event.preventDefault();
     var writeText = $('#send :input').val();
     app.handleSubmit(writeText);
   });
 
+  $('.username').on('click', function(event){
+    event.preventDefault();
+    console.log("Clicking on Username");
+    app.addFriend();
+  });
+
  });
 
-setInterval(app.fetch, 500);
+setInterval(app.init, 10000);
 
 
 
