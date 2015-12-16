@@ -62,7 +62,7 @@ app.fetch = function(data){
       
       //var arrayOfData = [];
       //arrayOfData.push(data);
-      //console.log(arrayOfData);
+      console.log(data);
       app.clearMessages();
       app.addMessage(data);
 
@@ -137,14 +137,22 @@ app.clearMessages = function(){
 };
 
 app.addRoom = function(roomname){
-  $('#roomSelect').append('<div class="chatRoom"></div>');
+  console.log("Entering ", roomname);
+  var roomOption = $('<option value="' + roomname + '">'+roomname+'</option>');
+  $(".room").append(roomOption);
 };
 
-app.addFriend = function() {
+var friend = [];
 
-  console.log("add Friend is being called\n it\'s");
-  // return true;
-
+app.addFriend = function(username) {
+  console.log("add Friend is being called it's");
+  friend.push(username);
+  console.log(friend);
+  
+  for (var i = 0; i < friend.length; i++) {
+    console.log('this')
+    //console.log($());
+  };
 };
 
 
@@ -180,13 +188,28 @@ $(document).ready(function(){
 
   $(document).on('click', '.username', function(event){
     event.preventDefault();
-    console.log("Clicking on Username");
-    app.addFriend();
+    var username = $(this).text();
+    console.log(username);
+    app.addFriend(username);
   });
 
+  $('#newroom').on('submit', function(event){
+    event.preventDefault();
+    var newRoom = $('#newroom :input').val();
+    app.addRoom(newRoom);
+  });
+
+  $('.room').change(function() {
+    var selectedVal = this.value;
+    console.log("Selecting the: ", selectedVal);
+  });
+
+ 
  });
 
 setInterval(app.init, 10000);
+
+console.log('this a');
 
 
 

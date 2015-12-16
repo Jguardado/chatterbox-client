@@ -1,45 +1,55 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>chatterbox</title>
-    <link rel="stylesheet" href="styles/styles.css">
+<head>
+  <meta charset="utf-8">
+  <title>chatterbox</title>
+  <link rel="stylesheet" href="styles/styles.css">
 
-    <!-- dependencies -->
-    <script src="bower_components/jquery/jquery.min.js"></script>
-    <script src="bower_components/underscore/underscore.js"></script>
-    <!-- your scripts -->
-    <script src="env/config.js"></script>
-    <script src="scripts/app.js"></script>
-  </head>
-  <body>
-    
+  <!-- dependencies -->
+  <script src="bower_components/jquery/jquery.min.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
+  <!-- your scripts -->
+  <script src="env/config.js"></script>
+  <script src="scripts/app.js"></script>
+</head>
+<body>
 
-    <div class="audio">
+
+  <div class="audio">
     <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
     <script>
-    SC.initialize({
-    client_id: '6617a80ec894fc13c3fee6db07053a7d',
-    redirect_uri: ''
-    });
+      SC.initialize({
+        client_id: '6617a80ec894fc13c3fee6db07053a7d',
+        redirect_uri: ''
+      });
 
-    SC.stream('/tracks/293').then(function(player){ player.play();});
+      SC.stream('/tracks/293').then(function(player){ player.play();});
     </script>
-    </div>
-    
-    <div id="main">
+  </div>
+
+  <div id="main">
     <h1>chatterbox</h1>
     <form id="send">
-        <input type='text'><input class='submit' type='submit' value='Submit'>
-      </form>
-      <!-- <button id="refresh">Refresh</button>       -->
-    </div>
+      <input type='text'><input class='submit' type='submit' value='Submit'>
+    </form>
+    <form id="newroom">
+      <input type='text'><input class='room' type='submit' value='Enter'>
+    </form>
+    <!-- <button id="refresh">Refresh</button>       -->
+
+    <select name="rooms" class="room">
+      <option value="Room1">Room1</option>
+      <option value="Room2">Room2</option>
+      <option value="Room3">Room3</option>
+    </select>
+  </div>
 
 
 
 
 
-  </body>
+
+</body>
 </html>
 
 
