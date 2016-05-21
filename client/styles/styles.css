@@ -50,6 +50,18 @@ a :hover {
     line-height: 13px;
 }
 
+#roomSelect {
+    height: 300px;
+    width: 300px;
+    color: "red";
+    background-color: "teal";
+}
+.refresh {
+    display: inline;
+    height: 25px;
+    width: 50px;
+    background-color: "teal";
+}
 form {
     padding: 20px;
     padding-left: 0;
@@ -67,19 +79,16 @@ form input[type=text] {
     padding: 5px;
     margin-bottom: 5px;
     background-color: #eee;
-    border: 2px solid black;
-    height: 60px;
-    font-size: 13px;
-    overflow: hidden;
 }
 
-.username {
-    color: red;
-    display: inline;
+.chat .username {
+    font-weight: 800;
+    /*backgroundcolor: 'blue';*/
 }
 
-.text {
-    display: inline;
+.username:hover{
+    background-color: grey;
+    cursor: pointer;
 }
 
 .chat:hover {
